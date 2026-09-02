@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Oltre il Dubbio — Indagine</title>
+<title>Oltre il Dubbio — Interrogatori</title>
 
 <style>
 * {
@@ -43,14 +43,13 @@ header {
 }
 
 main {
-  max-width: 1150px;
+  max-width: 1100px;
   margin: auto;
-  padding: 40px 25px 70px;
+  padding: 45px 25px 70px;
 }
 
-.top {
+.header {
   text-align: center;
-  margin-bottom: 35px;
 }
 
 .label {
@@ -58,24 +57,23 @@ main {
   font-family: Arial, sans-serif;
   font-size: 11px;
   letter-spacing: 4px;
-  text-transform: uppercase;
   margin-bottom: 12px;
 }
 
 h1 {
-  font-size: clamp(38px, 6vw, 62px);
-  margin-bottom: 10px;
+  font-size: clamp(38px, 6vw, 60px);
+  margin-bottom: 12px;
 }
 
 .subtitle {
   color: #999;
   font-size: 17px;
+  line-height: 1.6;
 }
 
-.progress-box {
-  margin: 30px auto 0;
+.progress {
   max-width: 650px;
-  text-align: left;
+  margin: 30px auto 0;
 }
 
 .progress-info {
@@ -87,128 +85,148 @@ h1 {
   margin-bottom: 8px;
 }
 
-.progress {
+.bar {
   height: 6px;
   background: #202936;
   border-radius: 10px;
   overflow: hidden;
 }
 
-.progress-bar {
-  width: 16%;
+.bar-inner {
+  width: 33%;
   height: 100%;
   background: #c8b77d;
-  transition: width .5s;
+  transition: .5s;
 }
 
-.section-title {
-  margin: 45px 0 18px;
+.title {
   color: #c8b77d;
-  font-size: 13px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
   letter-spacing: 3px;
-  text-transform: uppercase;
+  margin: 50px 0 18px;
 }
 
-.grid {
+.witnesses {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 
-.card {
+.witness {
   background: #121925;
   border: 1px solid #2c3442;
   border-radius: 9px;
   padding: 23px;
-  min-height: 175px;
   cursor: pointer;
   transition: .25s;
-  position: relative;
 }
 
-.card:hover {
+.witness:hover {
   transform: translateY(-4px);
   border-color: #8f7d46;
-  background: #161f2d;
 }
 
-.card.locked {
-  opacity: .48;
-  cursor: not-allowed;
+.witness.active {
+  border-color: #c8b77d;
+  background: #171f2c;
 }
 
-.card.locked:hover {
-  transform: none;
-  border-color: #2c3442;
+.witness-icon {
+  font-size: 32px;
+  margin-bottom: 15px;
 }
 
-.icon {
-  font-size: 30px;
-  margin-bottom: 14px;
-}
-
-.card h2 {
+.witness h2 {
   font-size: 21px;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 
-.card p {
-  color: #9298a1;
+.witness p {
+  color: #888f99;
   font-family: Arial, sans-serif;
   font-size: 13px;
   line-height: 1.5;
 }
 
-.tag {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  font-family: Arial, sans-serif;
-  font-size: 9px;
-  letter-spacing: 1px;
-  color: #777;
-}
-
-.tag.available {
-  color: #c8b77d;
-}
-
-.panel {
+.interview {
   display: none;
   margin-top: 25px;
-  padding: 30px;
   background: #111822;
   border: 1px solid #343b48;
   border-radius: 9px;
+  padding: 30px;
   animation: appear .3s ease;
 }
 
-.panel.active {
+.interview.active {
   display: block;
 }
 
-.panel h2 {
+.interview-header {
+  border-bottom: 1px solid #303744;
+  padding-bottom: 20px;
+  margin-bottom: 25px;
+}
+
+.interview-header h2 {
   color: #c8b77d;
-  font-size: 28px;
-  margin-bottom: 20px;
+  font-size: 29px;
+  margin-bottom: 8px;
 }
 
-.panel p {
-  color: #ccc8be;
-  font-size: 16px;
-  line-height: 1.8;
-  margin-bottom: 16px;
+.role {
+  color: #777;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
 }
 
-.evidence {
-  background: #192231;
-  border-left: 3px solid #c8b77d;
-  padding: 16px;
+.question {
+  background: #192230;
+  border: 1px solid #2f3947;
+  border-radius: 6px;
   margin: 12px 0;
+  padding: 17px;
+  cursor: pointer;
+  color: #ddd8ce;
+  font-size: 15px;
+  line-height: 1.5;
+  transition: .2s;
 }
 
-.evidence strong {
-  color: #eeeae0;
+.question:hover {
+  border-color: #c8b77d;
+  background: #1d2735;
+}
+
+.question.used {
+  opacity: .55;
+}
+
+.answer {
+  display: none;
+  background: #0d131d;
+  border-left: 3px solid #c8b77d;
+  padding: 18px;
+  margin: -4px 0 15px;
+  color: #ccc8be;
+  font-size: 15px;
+  line-height: 1.8;
+  animation: appear .25s ease;
+}
+
+.answer.visible {
+  display: block;
+}
+
+.clue {
+  margin-top: 15px;
+  padding: 12px 15px;
+  background: #181e28;
+  color: #c8b77d;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
 }
 
 .actions {
@@ -219,10 +237,10 @@ h1 {
 }
 
 button {
-  font-family: Arial, sans-serif;
-  cursor: pointer;
-  border-radius: 4px;
   padding: 11px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
 }
 
 .primary {
@@ -239,8 +257,17 @@ button {
 }
 
 .secondary:hover {
-  border-color: #c8b77d;
   color: #c8b77d;
+  border-color: #c8b77d;
+}
+
+.notice {
+  text-align: center;
+  color: #c8b77d;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  min-height: 25px;
+  margin-top: 25px;
 }
 
 .inventory {
@@ -253,20 +280,20 @@ button {
 
 .inventory h2 {
   font-size: 19px;
-  margin-bottom: 18px;
+  margin-bottom: 15px;
 }
 
-.inventory-list {
+.items {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 9px;
 }
 
 .item {
-  padding: 9px 13px;
   border: 1px solid #343b48;
+  padding: 9px 12px;
   border-radius: 4px;
-  color: #888;
+  color: #777;
   font-family: Arial, sans-serif;
   font-size: 11px;
 }
@@ -274,37 +301,6 @@ button {
 .item.found {
   color: #c8b77d;
   border-color: #725f2d;
-}
-
-.notice {
-  margin-top: 25px;
-  text-align: center;
-  min-height: 25px;
-  color: #c8b77d;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-}
-
-.continue {
-  text-align: center;
-  margin-top: 45px;
-}
-
-.continue button {
-  background: #c8b77d;
-  border: none;
-  padding: 16px 30px;
-  color: #111722;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-footer {
-  text-align: center;
-  padding: 30px;
-  color: #555;
-  font-family: Arial, sans-serif;
-  font-size: 10px;
 }
 
 @keyframes appear {
@@ -319,7 +315,7 @@ footer {
 }
 
 @media(max-width: 800px) {
-  .grid {
+  .witnesses {
     grid-template-columns: 1fr;
   }
 
@@ -343,243 +339,264 @@ footer {
 
 <main>
 
-<section class="top">
+<section class="header">
 
-  <div class="label">Fase 02 — Indagine</div>
+  <div class="label">Fase 02 — Interrogatori</div>
 
-  <h1>Il Caso Morelli</h1>
+  <h1>Le persone che sanno</h1>
 
   <p class="subtitle">
-    Ogni elemento può cambiare la ricostruzione dei fatti.
+    Fai le domande. Ascolta le risposte.<br>
+    Non dare per scontato che chi parla stia dicendo la verità.
   </p>
 
-  <div class="progress-box">
+  <div class="progress">
 
     <div class="progress-info">
-      <span>PROGRESSO DELL'INDAGINE</span>
-      <span id="progressText">1 / 6</span>
+      <span>INDAGINE</span>
+      <span id="progressText">2 / 6</span>
     </div>
 
-    <div class="progress">
-      <div class="progress-bar" id="progressBar"></div>
+    <div class="bar">
+      <div class="bar-inner" id="progressBar"></div>
     </div>
 
   </div>
 
 </section>
 
-<div class="section-title">
-  Strumenti investigativi
+<div class="title">
+  Scegli una persona da interrogare
 </div>
 
-<section class="grid">
+<section class="witnesses">
 
-  <div class="card" onclick="openPanel('sopralluogo')">
-    <span class="tag available">DISPONIBILE</span>
-    <div class="icon">🔎</div>
-    <h2>Sopralluogo</h2>
-    <p>Esamina l'appartamento e cerca elementi che potrebbero essere sfuggiti agli investigatori.</p>
+  <div class="witness" onclick="openInterview('laura')">
+    <div class="witness-icon">👩</div>
+    <h2>Laura Bianchi</h2>
+    <p>37 anni · vicina di casa</p>
   </div>
 
-  <div class="card" onclick="openPanel('interrogatori')">
-    <span class="tag available">DISPONIBILE</span>
-    <div class="icon">👁️</div>
-    <h2>Interrogatori</h2>
-    <p>Analizza le dichiarazioni delle persone ascoltate durante le indagini.</p>
+  <div class="witness" onclick="openInterview('davide')">
+    <div class="witness-icon">👨</div>
+    <h2>Davide Conti</h2>
+    <p>32 anni · collega della vittima</p>
   </div>
 
-  <div class="card" onclick="openPanel('telefono')">
-    <span class="tag">SBLOCCATO DOPO IL SOPRALLUOGO</span>
-    <div class="icon">📱</div>
-    <h2>Telefono</h2>
-    <p>Esamina messaggi, chiamate e attività del telefono della vittima.</p>
+  <div class="witness" onclick="openInterview('elena')">
+    <div class="witness-icon">👩‍💼</div>
+    <h2>Elena Moretti</h2>
+    <p>29 anni · cliente del locale</p>
   </div>
 
-  <div class="card locked" onclick="lockedMessage()">
-    <span class="tag">🔒 BLOCCATO</span>
-    <div class="icon">🎥</div>
-    <h2>Telecamera</h2>
-    <p>Analizza le immagini registrate dalla telecamera esterna.</p>
+</section>
+
+<section id="laura" class="interview">
+
+  <div class="interview-header">
+    <h2>Laura Bianchi</h2>
+    <div class="role">TESTIMONE · VICINA DI CASA</div>
   </div>
 
-  <div class="card locked" onclick="lockedMessage()">
-    <span class="tag">🔒 BLOCCATO</span>
-    <div class="icon">🧬</div>
-    <h2>Perizia</h2>
-    <p>Consulta gli accertamenti tecnici effettuati sul luogo del delitto.</p>
+  <p style="color:#aaa;margin-bottom:20px;">
+    Laura sembra tranquilla, ma evita continuamente di guardarti negli occhi.
+  </p>
+
+  <div class="question" onclick="ask(this,'a1')">
+    «Cosa ha sentito quella sera?»
   </div>
 
-  <div class="card locked" onclick="lockedMessage()">
-    <span class="tag">🔒 BLOCCATO</span>
-    <div class="icon">📄</div>
-    <h2>Documenti</h2>
-    <p>Esamina ricevute, registri e altri documenti acquisiti durante l'indagine.</p>
+  <div id="a1" class="answer">
+    «Una discussione. Erano circa le dieci e un quarto.
+    Non riuscivo a capire bene le parole, ma sembrava che
+    Alessandro fosse molto arrabbiato.»
+    <div class="clue">
+      🔎 INDIZIO: la discussione viene collocata alle 22:15.
+    </div>
+  </div>
+
+  <div class="question" onclick="ask(this,'a2')">
+    «Ha visto Marco Morelli quella sera?»
+  </div>
+
+  <div id="a2" class="answer">
+    Laura rimane in silenzio per qualche secondo.
+    «Sì. Credo di averlo visto uscire dal palazzo.
+    Ma non posso dirle l'ora esatta.»
+    <div class="clue">
+      ⚠ CONTRADDIZIONE POTENZIALE: la testimone non sa indicare
+      l'orario con precisione.
+    </div>
+  </div>
+
+  <div class="question" onclick="ask(this,'a3')">
+    «È sicura che fosse Marco?»
+  </div>
+
+  <div id="a3" class="answer">
+    «Di spalle, con quella luce... direi di sì.
+    Però non gli ho visto chiaramente il volto.»
+    <div class="clue">
+      ⚠ ATTENDIBILITÀ: identificazione non certa.
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="secondary" onclick="closeInterviews()">
+      ← Torna ai testimoni
+    </button>
+  </div>
+
+</section>
+
+<section id="davide" class="interview">
+
+  <div class="interview-header">
+    <h2>Davide Conti</h2>
+    <div class="role">TESTIMONE · COLLEGA DELLA VITTIMA</div>
+  </div>
+
+  <p style="color:#aaa;margin-bottom:20px;">
+    Davide conosceva bene Alessandro. Risponde rapidamente,
+    quasi come se avesse già preparato le proprie risposte.
+  </p>
+
+  <div class="question" onclick="ask(this,'b1')">
+    «Com'era Alessandro negli ultimi giorni?»
+  </div>
+
+  <div id="b1" class="answer">
+    «Era nervoso. Aveva qualcosa per la testa.
+    Ma non mi ha mai detto cosa fosse.»
+    <div class="clue">
+      🔎 INDIZIO: qualcuno o qualcosa preoccupava Alessandro.
+    </div>
+  </div>
+
+  <div class="question" onclick="ask(this,'b2')">
+    «Ha mai parlato di Marco Morelli?»
+  </div>
+
+  <div id="b2" class="answer">
+    «Sì. Una volta mi ha detto che Marco aveva perso la pazienza.
+    Non so altro.»
+    <div class="clue">
+      ⚠ ELEMENTO: possibile conflitto precedente tra vittima e imputato.
+    </div>
+  </div>
+
+  <div class="question" onclick="ask(this,'b3')">
+    «Quando avete parlato l'ultima volta?»
+  </div>
+
+  <div id="b3" class="answer">
+    «Nel pomeriggio. Verso le sei.
+    Dopo non l'ho più sentito.»
+    <div class="clue">
+      🔎 DATO DA VERIFICARE: ultima comunicazione tra Davide e Alessandro.
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="secondary" onclick="closeInterviews()">
+      ← Torna ai testimoni
+    </button>
+  </div>
+
+</section>
+
+<section id="elena" class="interview">
+
+  <div class="interview-header">
+    <h2>Elena Moretti</h2>
+    <div class="role">TESTIMONE · CLIENTE DEL LOCALE</div>
+  </div>
+
+  <p style="color:#aaa;margin-bottom:20px;">
+    Elena dice di ricordare bene quella sera.
+    Ma alcuni dettagli sembrano confusi.
+  </p>
+
+  <div class="question" onclick="ask(this,'c1')">
+    «Ha visto Marco Morelli al locale?»
+  </div>
+
+  <div id="c1" class="answer">
+    «Sì. Era lì. Ne sono abbastanza sicura.»
+    <div class="clue">
+      🔎 INDIZIO: Elena colloca Morelli al locale.
+    </div>
+  </div>
+
+  <div class="question" onclick="ask(this,'c2')">
+    «A che ora lo ha visto?»
+  </div>
+
+  <div id="c2" class="answer">
+    «Poco dopo le undici, credo. Forse le undici e venti.
+    Non guardavo l'orologio.»
+    <div class="clue">
+      ⚠ DATO IMPORTANTE: questa dichiarazione potrebbe essere
+      decisiva per l'alibi di Morelli.
+    </div>
+  </div>
+
+  <div class="question" onclick="ask(this,'c3')">
+    «Come può essere sicura dell'orario?»
+  </div>
+
+  <div id="c3" class="answer">
+    Elena esita.
+    «In realtà... non posso esserlo.
+    Potrei essermi sbagliata.»
+    <div class="clue">
+      ⚠ CONTRADDIZIONE: la certezza iniziale sull'orario
+      non sembra più così solida.
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="secondary" onclick="closeInterviews()">
+      ← Torna ai testimoni
+    </button>
   </div>
 
 </section>
 
 <div id="notice" class="notice"></div>
 
-<section id="sopralluogo" class="panel">
+<section class="inventory">
 
-  <h2>🔎 Sopralluogo</h2>
+  <h2>📂 Elementi emersi dagli interrogatori</h2>
 
-  <p>
-    L'appartamento di Alessandro Rinaldi è stato posto sotto
-    sequestro. La scena appare relativamente ordinata.
-  </p>
+  <div class="items">
 
-  <p>
-    Non sono presenti evidenti segni di effrazione sulla porta.
-    Tuttavia, alcuni dettagli attirano la tua attenzione.
-  </p>
+    <div class="item found">Discussione — 22:15</div>
 
-  <div class="evidence">
-    <strong>REPERTO 01 — Impronta parziale</strong><br>
-    È stata rilevata sul bordo interno della porta del soggiorno.
-  </div>
+    <div class="item" id="clue2">
+      Identificazione di Morelli
+    </div>
 
-  <div class="evidence">
-    <strong>REPERTO 02 — Bicchiere</strong><br>
-    Sul tavolo sono presenti due bicchieri. Uno presenta tracce
-    riconducibili alla vittima.
-  </div>
+    <div class="item" id="clue3">
+      Conflitto Morelli / Rinaldi
+    </div>
 
-  <div class="evidence">
-    <strong>REPERTO 03 — Porta d'ingresso</strong><br>
-    Nessun segno evidente di effrazione.
-  </div>
+    <div class="item" id="clue4">
+      Presunto alibi al locale
+    </div>
 
-  <div class="actions">
-
-    <button class="primary" onclick="discover('sopralluogo')">
-      REGISTRA GLI INDIZI
-    </button>
-
-    <button class="secondary" onclick="closePanels()">
-      ← Torna all'indagine
-    </button>
+    <div class="item" id="clue5">
+      Incertezza sull'orario
+    </div>
 
   </div>
 
 </section>
 
-<section id="interrogatori" class="panel">
+<div class="continue" style="text-align:center;margin-top:45px;">
 
-  <h2>👁️ Interrogatori</h2>
-
-  <p>
-    Tre persone sono state ascoltate dagli investigatori.
-    Le loro dichiarazioni presentano alcuni punti da verificare.
-  </p>
-
-  <div class="evidence">
-    <strong>Laura Bianchi — vicina di casa</strong><br>
-    Riferisce di aver sentito una discussione intorno alle 22:15.
-  </div>
-
-  <div class="evidence">
-    <strong>Davide Conti — collega della vittima</strong><br>
-    Afferma che Alessandro aveva ricevuto un messaggio
-    preoccupante la sera dell'omicidio.
-  </div>
-
-  <div class="evidence">
-    <strong>Elena Moretti — cliente del locale</strong><br>
-    Dice di aver visto Morelli in un locale quella sera,
-    ma non ricorda con precisione l'orario.
-  </div>
-
-  <div class="actions">
-
-    <button class="primary" onclick="discover('interrogatori')">
-      REGISTRA LE DICHIARAZIONI
-    </button>
-
-    <button class="secondary" onclick="closePanels()">
-      ← Torna all'indagine
-    </button>
-
-  </div>
-
-</section>
-
-<section id="telefono" class="panel">
-
-  <h2>📱 Telefono della vittima</h2>
-
-  <p>
-    Il telefono di Alessandro è stato acquisito come reperto.
-    La cronologia mostra diverse attività nella serata.
-  </p>
-
-  <div class="evidence">
-    <strong>21:42</strong><br>
-    Messaggio ricevuto da un numero non salvato.
-  </div>
-
-  <div class="evidence">
-    <strong>22:03</strong><br>
-    Chiamata effettuata da Alessandro.
-    Durata: 47 secondi.
-  </div>
-
-  <div class="evidence">
-    <strong>22:51</strong><br>
-    Ultima attività registrata sul telefono prima
-    dell'intervallo stimato della morte.
-  </div>
-
-  <div class="actions">
-
-    <button class="primary" onclick="discover('telefono')">
-      ACQUISISCI I DATI
-    </button>
-
-    <button class="secondary" onclick="closePanels()">
-      ← Torna all'indagine
-    </button>
-
-  </div>
-
-</section>
-
-<div class="inventory">
-
-  <h2>🧳 Reperti acquisiti</h2>
-
-  <div class="inventory-list">
-
-    <div class="item found">REPERTO 01 — Impronta</div>
-
-    <div class="item" id="item02">
-      REPERTO 02 — Bicchiere
-    </div>
-
-    <div class="item" id="item03">
-      REPERTO 03 — Telefono
-    </div>
-
-    <div class="item" id="item04">
-      REPERTO 04 — Telecamera
-    </div>
-
-    <div class="item" id="item05">
-      REPERTO 05 — Perizia
-    </div>
-
-    <div class="item" id="item06">
-      REPERTO 06 — Documenti
-    </div>
-
-  </div>
-
-</div>
-
-<div class="continue">
-
-  <button onclick="continueInvestigation()">
-    CONTINUA L'INDAGINE →
+  <button class="primary" onclick="finishInterrogations()">
+    CONCLUDI GLI INTERROGATORI →
   </button>
 
 </div>
@@ -587,16 +604,16 @@ footer {
 </main>
 
 <footer>
-  OLTRE IL DUBBIO — Esperienza investigativa interattiva
+OLTRE IL DUBBIO — Esperienza investigativa interattiva
 </footer>
 
 <script>
 
-let discovered = 1;
+let questionsAsked = 0;
 
-function openPanel(id) {
+function openInterview(id) {
 
-  closePanels();
+  closeInterviews();
 
   document.getElementById(id).classList.add("active");
 
@@ -604,68 +621,74 @@ function openPanel(id) {
     top: document.getElementById(id).offsetTop - 20,
     behavior: "smooth"
   });
+
 }
 
-function closePanels() {
+function closeInterviews() {
 
-  document.querySelectorAll(".panel").forEach(panel => {
-    panel.classList.remove("active");
+  document.querySelectorAll(".interview").forEach(section => {
+    section.classList.remove("active");
   });
 
 }
 
-function lockedMessage() {
+function ask(question, answerId) {
 
-  document.getElementById("notice").textContent =
-    "🔒 Questo elemento non è ancora disponibile. Continua a raccogliere indizi.";
+  const answer = document.getElementById(answerId);
+
+  if (!answer.classList.contains("visible")) {
+
+    answer.classList.add("visible");
+
+    question.classList.add("used");
+
+    questionsAsked++;
+
+    updateClues();
+
+  }
 
 }
 
-function discover(type) {
+function updateClues() {
 
-  if (type === "sopralluogo") {
-
-    document.getElementById("item02").classList.add("found");
-
+  if (questionsAsked >= 2) {
+    document.getElementById("clue2").classList.add("found");
   }
 
-  if (type === "interrogatori") {
-
-    discovered++;
-
+  if (questionsAsked >= 4) {
+    document.getElementById("clue3").classList.add("found");
   }
 
-  if (type === "telefono") {
-
-    document.getElementById("item03").classList.add("found");
-
-    discovered++;
-
+  if (questionsAsked >= 6) {
+    document.getElementById("clue4").classList.add("found");
   }
 
-  updateProgress();
-
-  document.getElementById("notice").textContent =
-    "✓ Nuovi elementi aggiunti al fascicolo.";
-
-}
-
-function updateProgress() {
-
-  if (discovered > 6) discovered = 6;
+  if (questionsAsked >= 8) {
+    document.getElementById("clue5").classList.add("found");
+  }
 
   document.getElementById("progressText").textContent =
-    discovered + " / 6";
+    Math.min(6, 2 + Math.floor(questionsAsked / 3)) + " / 6";
 
   document.getElementById("progressBar").style.width =
-    ((discovered / 6) * 100) + "%";
+    Math.min(100, 33 + questionsAsked * 5) + "%";
 
 }
 
-function continueInvestigation() {
+function finishInterrogations() {
+
+  if (questionsAsked < 5) {
+
+    document.getElementById("notice").textContent =
+      "⚠ Hai raccolto poche informazioni. Prima di concludere, sarebbe meglio interrogare ancora i testimoni.";
+
+    return;
+
+  }
 
   document.getElementById("notice").textContent =
-    "🔓 L'indagine prosegue. Nuovi strumenti verranno sbloccati quando avrai analizzato gli elementi disponibili.";
+    "✓ Interrogatori conclusi. Le dichiarazioni sono state inserite nel fascicolo.";
 
   window.scrollTo({
     top: document.body.scrollHeight,
