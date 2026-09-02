@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Il mio primo sito</title>
+  <title>Oltre il Dubbio</title>
 
   <style>
     * {
@@ -14,97 +15,153 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
       min-height: 100vh;
-      background: linear-gradient(135deg, #111827, #312e81);
-      color: white;
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at top, #273449 0%, #111827 45%, #070b12 100%);
+      color: #f5f1e8;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
       padding: 30px;
     }
 
-    .container {
-      max-width: 800px;
+    .game {
+      width: 100%;
+      max-width: 850px;
+      text-align: center;
+      padding: 55px 35px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      background: rgba(10,15,25,0.78);
+      box-shadow: 0 25px 80px rgba(0,0,0,0.5);
     }
 
-    .badge {
-      display: inline-block;
-      padding: 8px 16px;
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 50px;
+    .symbol {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      font-family: Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      font-size: 13px;
+      color: #c8b77d;
       margin-bottom: 25px;
-      font-size: 14px;
-      opacity: 0.9;
     }
 
     h1 {
-      font-size: clamp(48px, 10vw, 90px);
-      line-height: 0.95;
-      margin-bottom: 25px;
+      font-size: clamp(48px, 9vw, 82px);
+      letter-spacing: 2px;
+      margin-bottom: 20px;
     }
 
-    p {
+    .line {
+      width: 90px;
+      height: 2px;
+      background: #c8b77d;
+      margin: 0 auto 30px;
+    }
+
+    .description {
+      max-width: 620px;
+      margin: auto;
       font-size: 20px;
-      line-height: 1.6;
-      opacity: 0.8;
-      margin-bottom: 35px;
+      line-height: 1.7;
+      color: #d6d3cb;
+    }
+
+    .warning {
+      margin: 35px auto;
+      max-width: 560px;
+      padding: 20px;
+      border-left: 3px solid #c8b77d;
+      background: rgba(255,255,255,0.04);
+      font-style: italic;
+      color: #e5e0d5;
     }
 
     button {
       border: none;
-      padding: 16px 30px;
-      border-radius: 50px;
-      background: white;
-      color: #312e81;
-      font-size: 17px;
+      padding: 17px 42px;
+      border-radius: 6px;
+      background: #c8b77d;
+      color: #111827;
+      font-size: 16px;
       font-weight: bold;
+      letter-spacing: 2px;
       cursor: pointer;
       transition: 0.25s;
     }
 
     button:hover {
-      transform: scale(1.05);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(200,183,125,0.25);
     }
 
-    #messaggio {
+    #startMessage {
       margin-top: 25px;
-      font-size: 18px;
-      min-height: 25px;
+      font-family: Arial, sans-serif;
+      color: #c8b77d;
+      min-height: 24px;
+    }
+
+    .footer {
+      margin-top: 45px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #777;
     }
   </style>
 </head>
 
 <body>
 
-  <main class="container">
+  <main class="game">
 
-    <div class="badge">
-      ✨ Il mio primo progetto web
+    <div class="symbol">⚖️</div>
+
+    <div class="subtitle">
+      Un gioco investigativo
     </div>
 
-    <h1>Il mio primo sito </h1>
+    <h1>OLTRE IL DUBBIO</h1>
 
-    <p>
-      Questo sito è nato da zero direttamente dal mio Chromebook.
-      E questo è soltanto l'inizio.
+    <div class="line"></div>
+
+    <p class="description">
+      Un uomo è morto.
+      Una persona è accusata del delitto.
+      Le prove sembrano raccontare una storia.
+      Ma la verità potrebbe essere un'altra.
     </p>
 
-    <button onclick="mostraMessaggio()">
-      Cliccami
+    <div class="warning">
+      «Non devi dimostrare che l'imputato è innocente.
+      Devi stabilire se la sua colpevolezza è dimostrata
+      oltre ogni ragionevole dubbio.»
+    </div>
+
+    <button onclick="iniziaCaso()">
+      INIZIA IL CASO
     </button>
 
-    <div id="messaggio"></div>
+    <div id="startMessage"></div>
+
+    <div class="footer">
+      Ogni decisione avrà delle conseguenze.
+    </div>
 
   </main>
 
   <script>
-    function mostraMessaggio() {
-      document.getElementById("messaggio").textContent =
-        "🚀 Funziona! Hai appena eseguito il tuo primo codice JavaScript.";
+    function iniziaCaso() {
+      document.getElementById("startMessage").textContent =
+        "Il fascicolo sta per essere aperto...";
     }
   </script>
 
 </body>
 </html>
+```
