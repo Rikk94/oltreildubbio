@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Il mio primo sito</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #111827, #312e81);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 800px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px;
+      margin-bottom: 25px;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    h1 {
+      font-size: clamp(48px, 10vw, 90px);
+      line-height: 0.95;
+      margin-bottom: 25px;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 1.6;
+      opacity: 0.8;
+      margin-bottom: 35px;
+    }
+
+    button {
+      border: none;
+      padding: 16px 30px;
+      border-radius: 50px;
+      background: white;
+      color: #312e81;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    #messaggio {
+      margin-top: 25px;
+      font-size: 18px;
+      min-height: 25px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <div class="badge">
+      ✨ Il mio primo progetto web
+    </div>
+
+    <h1>Benvenuto.</h1>
+
+    <p>
+      Questo sito è stato creato direttamente dal mio Chromebook.
+      E questo è soltanto l'inizio.
+    </p>
+
+    <button onclick="mostraMessaggio()">
+      Cliccami
+    </button>
+
+    <div id="messaggio"></div>
+
+  </main>
+
+  <script>
+    function mostraMessaggio() {
+      document.getElementById("messaggio").textContent =
+        "🚀 Funziona! Hai appena eseguito il tuo primo codice JavaScript.";
+    }
+  </script>
+
+</body>
+</html>
