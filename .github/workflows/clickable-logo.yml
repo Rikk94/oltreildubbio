@@ -1,0 +1,47 @@
+name: Make site logo clickable
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  logo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Convert every site brand into a Home link
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          changed = []
+          pattern = re.compile(r'<div(\s+class=["\']brand["\'])([^>]*)>(.*?)</div>', re.I | re.S)
+          reverse = re.compile(r'<a(\s+class=["\']brand["\'])(\s+href=["\'][^"\']*["\'])([^>]*)>(.*?)</a>', re.I | re.S)
+
+          for path in Path('.').rglob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              new = pattern.sub(lambda m: f'<a class="brand" href="/">{m.group(3)}</a>', text)
+              if new != text:
+                  path.write_text(new, encoding='utf-8')
+                  changed.append(str(path))
+
+          print('Updated:', ', '.join(changed) if changed else 'none')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html' '**/*.html'
+          if git diff --cached --quiet; then
+            echo "No logo changes needed."
+          else
+            git commit -m "Make site logo link to Home on every page"
+            git push
+          fi
