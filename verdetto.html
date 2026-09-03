@@ -1,1 +1,113 @@
-<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Oltre il Dubbio — Verdetto</title><style>body{margin:0;background:#090d14;color:#eeeae0;font-family:Georgia,serif}header{padding:18px 28px;background:#101722;border-bottom:1px solid #343b48;display:flex;justify-content:space-between}.brand{letter-spacing:3px;font-weight:bold}.case{font:11px Arial;color:#888}main{max-width:850px;margin:auto;padding:55px 24px}.ey{font:11px Arial;color:#c8b77d;letter-spacing:4px}h1{font-size:52px}.lead{color:#999;font:15px/1.7 Arial}.choices{display:grid;gap:12px;margin-top:30px}.choice{background:#111822;border:1px solid #303846;padding:20px;border-radius:7px;cursor:pointer}.choice:hover{border-color:#c8b77d}.choice strong{display:block;color:#c8b77d;margin-bottom:6px}.result{display:none;margin-top:25px;padding:25px;background:#111822;border:1px solid #665a34;border-radius:7px}.result h2{color:#c8b77d}.result p{color:#aaa;font:14px/1.7 Arial}.nav{margin-top:30px}.btn{color:#c8b77d;text-decoration:none;border:1px solid #5d5334;padding:11px 16px;font:12px Arial;display:inline-block}</style></head><body><header><div class="brand">⚖ OLTRE IL DUBBIO</div><div class="case">PROCEDIMENTO N. 014/26</div></header><main><div class="ey">FASE 05 · VERDETTO</div><h1>La tua conclusione</h1><p class="lead">Hai ascoltato le testimonianze e confrontato gli elementi disponibili. Ora scegli la conclusione che ritieni più coerente con il fascicolo.</p><div class="choices"><div class="choice" onclick="finish('colpevole')"><strong>RESPONSABILITÀ DIMOSTRATA</strong>Ritengo che gli elementi raccolti siano sufficienti per attribuire la responsabilità.</div><div class="choice" onclick="finish('dubbio')"><strong>OLTRE OGNI RAGIONEVOLE DUBBIO</strong>Ritengo che permangano contraddizioni o lacune tali da impedire una conclusione certa.</div><div class="choice" onclick="finish('insufficiente')"><strong>PROVE INSUFFICIENTI</strong>Il quadro è incompleto e richiede ulteriori accertamenti.</div></div><div id="result" class="result"><h2 id="rh"></h2><p id="rp"></p></div><div class="nav"><a class="btn" href="test-home.html">← Torna all'ambiente test</a></div></main><script>function finish(x){localStorage.setItem('od_progress',100);let h=x==='colpevole'?'Conclusione registrata':'Valutazione registrata';let p=x==='colpevole'?'Hai scelto di ritenere il quadro probatorio sufficiente. Nella versione definitiva questa scelta sarà confrontata con gli elementi e con una motivazione dettagliata.':x==='dubbio'?'Hai applicato il principio del dubbio: le contraddizioni individuate impediscono, in questa fase, una certezza assoluta.':'Hai rilevato la necessità di ulteriori accertamenti prima di formulare una conclusione definitiva.';document.getElementById('rh').textContent=h;document.getElementById('rp').textContent=p;document.getElementById('result').style.display='block';}</script></body></html>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oltre il Dubbio — Sentenza</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#090d14;color:#eeeae0;font-family:Georgia,serif}.top{padding:18px 28px;background:#101722;border-bottom:1px solid #343b48;display:flex;justify-content:space-between;align-items:center}.brand{letter-spacing:3px;font-weight:bold}.case{font:11px Arial;color:#888;letter-spacing:1px}main{max-width:980px;margin:auto;padding:48px 24px 80px}.ey{font:11px Arial;color:#c8b77d;letter-spacing:4px}.intro{max-width:760px}.intro h1{font-size:48px;margin:14px 0}.lead{color:#a7a7a4;font:15px/1.7 Arial}.panel{background:#111822;border:1px solid #303846;border-radius:8px;padding:24px;margin-top:30px}.panel h2{margin:0 0 12px;color:#c8b77d;font-size:20px}.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.choice{background:#0d131c;border:1px solid #343b48;border-radius:7px;padding:19px;cursor:pointer;transition:.2s}.choice:hover{border-color:#c8b77d;transform:translateY(-1px)}.choice strong{display:block;color:#c8b77d;font:12px Arial;letter-spacing:1px;margin-bottom:8px}.choice span{color:#aaa;font:13px/1.6 Arial}.hidden{display:none}.judgment{margin-top:35px;background:#f0eee7;color:#191919;padding:54px 58px;box-shadow:0 12px 45px #0008;border-radius:2px}.court{text-align:center;text-transform:uppercase;font-size:13px;letter-spacing:2px;line-height:1.7}.judgment h2{text-align:center;font-size:30px;margin:18px 0 35px}.judgment h3{font-size:17px;margin:30px 0 10px;border-bottom:1px solid #bbb;padding-bottom:7px}.judgment p{font-size:15px;line-height:1.75;margin:9px 0;text-align:justify}.judgment .device{font-weight:bold}.signature{margin-top:42px;text-align:right;font-size:14px}.stamp{display:inline-block;border:2px solid #555;padding:8px 14px;font:bold 11px Arial;letter-spacing:2px;margin-top:22px}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}.stat{background:#0d131c;border:1px solid #303846;padding:15px}.stat b{display:block;color:#c8b77d;font:10px Arial;letter-spacing:1px;margin-bottom:6px}.stat span{font:14px Arial;color:#ddd}.actions{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap}.btn{color:#c8b77d;text-decoration:none;border:1px solid #5d5334;padding:12px 16px;font:12px Arial;background:transparent;cursor:pointer}.btn:hover{background:#171b20}@media(max-width:700px){.choices,.summary{grid-template-columns:1fr}.judgment{padding:32px 24px}.intro h1{font-size:38px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brand">⚖ OLTRE IL DUBBIO</div><div class="case">PROCEDIMENTO N. 014/26</div></header>
+<main>
+<section class="intro">
+<div class="ey">FASE 05 · VERDETTO</div>
+<h1>La decisione finale</h1>
+<p class="lead">Il fascicolo è stato esaminato. Le testimonianze sono state confrontate con la cronologia e con gli elementi raccolti. Ora formula la tua conclusione. Il sistema trasformerà la tua decisione in una <strong>sentenza giudiziaria integralmente motivata</strong>.</p>
+</section>
+
+<section class="panel" id="decisionPanel">
+<h2>Qual è la tua conclusione?</h2>
+<p class="lead">Non scegliere in base a ciò che “sembra” vero. Considera ciò che il fascicolo consente realmente di dimostrare.</p>
+<div class="choices">
+<div class="choice" onclick="finish('colpevole')"><strong>RESPONSABILITÀ AFFERMATA</strong><span>Ritengo che il quadro complessivo consenta di attribuire a Marco Morelli la responsabilità del fatto.</span></div>
+<div class="choice" onclick="finish('dubbio')"><strong>ASSOLUZIONE PER DUBBIO</strong><span>Ritengo che le contraddizioni e le lacune impediscano di raggiungere una certezza oltre ogni ragionevole dubbio.</span></div>
+<div class="choice" onclick="finish('insufficiente')"><strong>PROVE INSUFFICIENTI</strong><span>Ritengo che il quadro investigativo non sia ancora abbastanza completo per una decisione di colpevolezza.</span></div>
+<div class="choice" onclick="finish('responsabilita-parziale')"><strong>QUADRO NON UNIVOCO</strong><span>Ritengo che alcuni elementi siano significativi, ma che non consentano di ricostruire con sufficiente certezza responsabilità e dinamica.</span></div>
+</div>
+</section>
+
+<section id="result" class="hidden">
+<div class="summary" id="summary"></div>
+<article class="judgment">
+<div class="court">IN NOME DEL POPOLO ITALIANO<br>TRIBUNALE — PROCEDIMENTO PENALE N. 014/26</div>
+<h2>SENTENZA</h2>
+<p>Il Tribunale, esaminati gli atti del procedimento, le dichiarazioni raccolte e gli elementi acquisiti nel corso dell'indagine, pronuncia la seguente sentenza.</p>
+
+<h3>1. Imputazione</h3>
+<p>Marco Morelli è indicato nel fascicolo quale soggetto nei cui confronti si è concentrata l'attenzione investigativa in relazione alla morte di Alessandro Rinaldi.</p>
+<p>La presente decisione è un documento narrativo interno al gioco e valuta esclusivamente gli elementi messi a disposizione del giocatore nel procedimento 014/26.</p>
+
+<h3>2. Ricostruzione dei fatti</h3>
+<p id="facts"></p>
+
+<h3>3. Le prove e la loro valutazione</h3>
+<p id="proof"></p>
+<p id="connections"></p>
+
+<h3>4. Attendibilità delle dichiarazioni</h3>
+<p>La testimonianza di Laura Bianchi presenta un elemento di interesse, ma anche un limite decisivo: la stessa dichiara di non avere visto con chiarezza il volto della persona che ritiene di aver identificato come Morelli. La sua indicazione costituisce pertanto un elemento da confrontare con gli altri dati, non una prova autosufficiente.</p>
+<p>Davide Conti riferisce che Rinaldi era nervoso e che aveva parlato della perdita di pazienza di Morelli. Si tratta però di una dichiarazione indiretta quanto al contenuto del conflitto e non dimostra, da sola, ciò che sarebbe accaduto nelle ore successive.</p>
+<p>Elena Moretti colloca Morelli presso un locale poco dopo le ore 23, ma ammette di non avere controllato l'orologio. L'orario è quindi approssimativo e non consente di trasformare quella presenza in un alibi temporale preciso.</p>
+
+<h3>5. La cronologia</h3>
+<p>Alle ore 18:00 risulta l'ultimo contatto riferito da Conti. Alle ore 22:15 circa Laura Bianchi colloca una discussione. Dopo le 23:00 Elena Moretti colloca Morelli presso un locale. Tra questi momenti rimane un intervallo temporale che il fascicolo non consente di colmare con certezza.</p>
+<p id="chronology"></p>
+
+<h3>6. Motivi della decisione</h3>
+<p id="reasoning"></p>
+
+<h3>7. Dispositivo</h3>
+<p class="device" id="dispositivo"></p>
+
+<div class="signature">Il Giudice<br><em>Documento giudiziario simulato — Procedimento 014/26</em><div class="stamp">FINE DEL PROCEDIMENTO</div></div>
+</article>
+<div class="actions"><button class="btn" onclick="window.print()">STAMPA / SALVA LA SENTENZA</button><button class="btn" onclick="resetCase()">RIAPRI IL FASCICOLO</button><a class="btn" href="test-home.html">← AMBIENTE TEST</a></div>
+</section>
+</main>
+<script>
+const evidence=JSON.parse(localStorage.getItem('od_evidence')||'[]');
+const reviewed=JSON.parse(localStorage.getItem('od_reviewed')||'[]');
+const connections=JSON.parse(localStorage.getItem('od_connections')||'[]');
+const events=JSON.parse(localStorage.getItem('od_reconstruction_events')||'[]');
+const hyp=localStorage.getItem('od_reconstruction_hyp')||'';
+const labels={
+ '18:00':'ultimo contatto riferito alle ore 18:00',
+ '22:15':'discussione collocata intorno alle ore 22:15',
+ '23:00':'presenza di Morelli presso un locale dopo le ore 23:00',
+ 'laura_identificazione':'identificazione non certa riferita da Laura Bianchi',
+ 'conflitto':'riferimento al conflitto tra Rinaldi e Morelli',
+ 'orario_incerto':'incertezza sull’orario riferito da Elena Moretti'
+};
+function finish(type){
+ localStorage.setItem('od_verdict',type);localStorage.setItem('od_progress','100');
+ const strong=reviewed.length>=4 && connections.length>=1;
+ let outcome,reason;
+ if(type==='colpevole'){
+   outcome='Il quadro non raggiunge, allo stato degli atti, un livello sufficiente per una condanna.';
+   reason='La scelta della responsabilità non è stata considerata sufficiente dal giudice. Esistono elementi sospetti e una possibile sequenza temporale, ma il fascicolo non dimostra in modo diretto né la dinamica della morte né il collegamento certo tra Morelli e il fatto. L’identificazione di Laura è incerta, la dichiarazione di Conti è in parte indiretta e la presenza al locale riferita da Elena non copre con precisione l’intero intervallo temporale. Il sospetto, anche quando significativo, non può essere trasformato automaticamente in prova.';
+ } else if(type==='dubbio'){
+   outcome='Marco Morelli è assolto per insufficienza di prova oltre ogni ragionevole dubbio.';
+   reason='Le contraddizioni non sono marginali. L’identificazione di Laura è espressamente incerta; il riferimento al conflitto proviene da una dichiarazione indiretta; l’orario indicato da Elena non è verificato da un controllo dell’orologio. La cronologia lascia inoltre un intervallo non colmato. Considerati nel loro insieme, gli elementi possono alimentare un sospetto, ma non consentono di affermare con certezza processuale che Morelli sia l’autore del fatto.';
+ } else if(type==='insufficiente'){
+   outcome='Il procedimento non consente di affermare la responsabilità dell’imputato sulla base degli elementi attualmente disponibili.';
+   reason='Il fascicolo presenta una serie di elementi investigativi utili, ma non ancora una catena probatoria completa. Prima di attribuire una responsabilità sarebbero necessari ulteriori accertamenti sulla cronologia, sull’identificazione e sui movimenti delle persone coinvolte.';
+ } else {
+   outcome='Non è possibile formulare una condanna sulla sola base del quadro non univoco emerso dall’indagine.';
+   reason='Il quadro contiene elementi che convergono sul rapporto tra Morelli e Rinaldi, ma non raggiunge una ricostruzione univoca della dinamica. La presenza di contraddizioni e intervalli temporali non chiariti impedisce di sostituire una ricostruzione possibile con una ricostruzione certa.';
+ }
+ document.getElementById('facts').textContent='Dagli atti emerge una sequenza non completa: l’ultimo contatto riferito risale alle 18:00; una discussione viene collocata intorno alle 22:15; Morelli viene poi indicato presso un locale dopo le 23:00. Il punto centrale del procedimento è stabilire se questi dati possano essere collegati in una ricostruzione certa oppure se restino semplicemente elementi compatibili con più scenari.';
+ document.getElementById('proof').textContent='Nel fascicolo risultano acquisiti '+(evidence.length||reviewed.length||'diversi')+' elementi investigativi. Il loro valore deve essere valutato singolarmente e nel loro insieme: nessuna delle testimonianze disponibili costituisce, da sola, una dimostrazione completa della responsabilità.';
+ document.getElementById('connections').textContent=connections.length?'Il giocatore ha inoltre individuato '+connections.length+' collegamento/i tra elementi del fascicolo. Tali collegamenti sono utili per formulare ipotesi investigative, ma non trasformano automaticamente una relazione logica in una prova del fatto.':'Non risultano collegamenti probatori sufficienti registrati tra gli elementi esaminati.';
+ document.getElementById('chronology').textContent=events.length?'Nella ricostruzione proposta dal giocatore sono stati selezionati '+events.length+' eventi. L’ipotesi investigativa indicata è: '+(hyp||'non specificata')+'.':'La ricostruzione non ha prodotto una sequenza completa degli eventi.';
+ document.getElementById('reasoning').textContent=reason;
+ document.getElementById('dispositivo').textContent=outcome;
+ document.getElementById('summary').innerHTML='<div class="stat"><b>VERDETTO</b><span>'+labelType(type)+'</span></div><div class="stat"><b>ELEMENTI ESAMINATI</b><span>'+ (reviewed.length||evidence.length||0) +'</span></div><div class="stat"><b>COLLEGAMENTI</b><span>'+connections.length+'</span></div><div class="stat"><b>RICOSTRUZIONE</b><span>'+events.length+' eventi</span></div>';
+ document.getElementById('decisionPanel').classList.add('hidden');document.getElementById('result').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});
+}
+function labelType(x){return x==='colpevole'?'RESPONSABILITÀ AFFERMATA':x==='dubbio'?'DUBBIO RAGIONEVOLE':x==='insufficiente'?'PROVE INSUFFICIENTI':'QUADRO NON UNIVOCO'}
+function resetCase(){['od_progress','od_verdict','od_evidence','od_reviewed','od_connections','od_answers','od_reconstruction_events','od_reconstruction_hyp','od_reconstruction_complete','od_indizi_complete','od_interrogations_complete'].forEach(k=>localStorage.removeItem(k));location.href='test-home.html'}
+</script>
+</body>
+</html>
