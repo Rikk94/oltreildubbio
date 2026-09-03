@@ -12,7 +12,7 @@
     },
     {
       "src": "^/$",
-      "dest": "/casi.html"
+      "dest": "/index.html"
     },
     {
       "src": "^/(.*)$",
