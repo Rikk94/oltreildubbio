@@ -11,6 +11,10 @@
       "dest": "/test-home.html"
     },
     {
+      "src": "^/$",
+      "dest": "/casi.html"
+    },
+    {
       "src": "^/(.*)$",
       "dest": "/$1"
     }
