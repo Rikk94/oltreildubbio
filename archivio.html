@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oltre il Dubbio — Archivio del Procedimento</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#090b0f;color:#e9e5dc;font-family:Arial,sans-serif}header{border-bottom:1px solid #403a2d;padding:22px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center}header strong{letter-spacing:3px;color:#c9a85b}header span{font-size:11px;color:#8e8a80;letter-spacing:2px}.wrap{max-width:1100px;margin:0 auto;padding:45px 24px 80px}.eyebrow{font-size:11px;letter-spacing:3px;color:#b79a5a;margin-bottom:12px}.title{font-family:Georgia,serif;font-size:clamp(36px,6vw,64px);margin:0 0 12px}.lead{max-width:760px;color:#aaa69d;line-height:1.7}.paper{background:#eee9df;color:#202020;margin-top:35px;padding:42px 48px;box-shadow:0 18px 50px #0008}.paper h2{font-family:Georgia,serif;text-align:center;margin:0 0 8px}.paper .case{text-align:center;font-size:12px;letter-spacing:2px;margin-bottom:35px}.section{border-top:1px solid #bbb3a5;padding:22px 0}.section h3{font-family:Georgia,serif;margin:0 0 12px;font-size:20px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{background:#15181e;border:1px solid #36343a;padding:18px}.stat b{display:block;font-size:25px;color:#d0ad62;margin-bottom:5px}.stat small{color:#96938c}.tag{display:inline-block;padding:7px 10px;border:1px solid #8d7744;color:#7b6231;font-size:11px;letter-spacing:1px;margin:3px}.darkbox{background:#101319;border:1px solid #302f30;padding:18px;margin-top:12px;color:#d5d1c8}.miss{color:#9b4e4e}.ok{color:#537e61}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}button,a.btn{border:1px solid #6c5a36;background:#b79752;color:#101010;padding:13px 18px;text-decoration:none;font-weight:bold;cursor:pointer}a.secondary{background:transparent;color:#c9a85b}.locked{border:1px solid #493f2e;padding:30px;background:#111319;color:#aaa69d}footer{border-top:1px solid #292822;margin-top:55px;padding-top:20px;color:#716e67;font-size:11px}
+@media(max-width:700px){header{padding:18px}.wrap{padding:30px 16px}.paper{padding:25px 20px}.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header><strong>⚖ OLTRE IL DUBBIO</strong><span>PROCEDIMENTO N. 014/26 · FASE 06 · ARCHIVIO</span></header>
+<main class="wrap" id="app"></main>
+<script>
+const answers=JSON.parse(localStorage.getItem('od_answers')||'{}');
+const evidence=JSON.parse(localStorage.getItem('od_evidence')||'{}');
+const reviewed=JSON.parse(localStorage.getItem('od_reviewed')||'{}');
+const connections=JSON.parse(localStorage.getItem('od_connections')||'[]');
+const events=JSON.parse(localStorage.getItem('od_reconstruction_events')||'[]');
+const hyp=localStorage.getItem('od_reconstruction_hyp')||'—';
+const verdict=localStorage.getItem('od_verdict');
+const labels={colpevole:'RESPONSABILITÀ AFFERMATA',dubbio:'ASSOLUZIONE PER DUBBIO',insufficiente:'PROVE INSUFFICIENTI',responsabilita-parziale:'QUADRO NON UNIVOCO'};
+const qLabels={a1:'Laura · discussione delle 22:15',a2:'Laura · identificazione di Marco',a3:'Laura · limiti della percezione',b1:'Davide · stato d’animo di Alessandro',b2:'Davide · conflitto con Marco',b3:'Davide · ultima comunicazione',c1:'Elena · presenza di Marco al locale',c2:'Elena · orario della presenza',c3:'Elena · precisione dell’orario'};
+const evidenceLabels={a1:'Discussione delle 22:15',a2:'Identificazione incerta',a3:'Attendibilità dell’identificazione',b1:'Alessandro era nervoso',b2:'Conflitto riferito',b3:'Ultima comunicazione delle 18:00',c1:'Presenza di Marco al locale',c2:'Presenza intorno alle 23:00',c3:'Orario dichiarato incerto'};
+const asked=Object.keys(answers);const acquired=Object.keys(evidence);const rev=Object.keys(reviewed).filter(k=>reviewed[k]);
+function score(){let s=0;s+=asked.length/9*30;s+=Math.min(rev.length/Math.max(acquired.length,1),1)*20;s+=Math.min(connections.length/3,1)*20;s+=events.length>=3?20:events.length/3*20;if(hyp==='D')s-=10;return Math.max(0,Math.min(100,Math.round(s)))}
+function missed(){return Object.keys(qLabels).filter(k=>!answers[k])}
+function render(){
+ if(!verdict){document.getElementById('app').innerHTML=`<div class="eyebrow">ACCESSO NEGATO</div><h1 class="title">Archivio non ancora disponibile</h1><div class="locked">L’archivio definitivo viene generato dopo il verdetto. Completa il procedimento e pronuncia una decisione nella FASE 05.</div><div class="actions"><a class="btn secondary" href="verdetto.html">Vai al verdetto →</a><a class="btn secondary" href="test-home.html">Torna all’ambiente test</a></div>`;return}
+ const miss=missed();
+ document.getElementById('app').innerHTML=`<div class="eyebrow">FASCICOLO CHIUSO · ARCHIVIO DEL PROCEDIMENTO</div><h1 class="title">Archivio finale</h1><p class="lead">Questa sezione conserva ciò che hai realmente fatto durante l’indagine. Non mostra soltanto la soluzione: registra le domande poste, gli elementi acquisiti, i collegamenti costruiti e le lacune investigative rimaste aperte.</p>
+ <div class="paper"><h2>TRIBUNALE SIMULATO</h2><div class="case">PROCEDIMENTO N. 014/26 · ARCHIVIO CONCLUSIVO</div>
+ <div class="section"><h3>Esito del procedimento</h3><p><strong>${labels[verdict]||verdict}</strong></p><p>Indice investigativo: <strong>${score()}/100</strong></p></div>
+ <div class="section"><h3>1. Traccia dell’indagine</h3><div class="grid"><div class="stat"><b>${asked.length}/9</b><small>domande poste</small></div><div class="stat"><b>${acquired.length}</b><small>elementi acquisiti</small></div><div class="stat"><b>${connections.length}</b><small>collegamenti</small></div><div class="stat"><b>${events.length}</b><small>eventi ricostruiti</small></div></div></div>
+ <div class="section"><h3>2. Domande non poste</h3>${miss.length?miss.map(k=>`<div class="tag miss">${qLabels[k]}</div>`).join(''):'<p class="ok">Nessuna domanda è rimasta esclusa.</p>'}</div>
+ <div class="section"><h3>3. Elementi acquisiti</h3>${acquired.length?acquired.map(k=>`<span class="tag">${evidenceLabels[k]||k}</span>`).join(''):'<p>Nessun elemento registrato.</p>'}</div>
+ <div class="section"><h3>4. Elementi esaminati</h3>${rev.length?rev.map(k=>`<span class="tag">${evidenceLabels[k]||k}</span>`).join(''):'<p>Nessun elemento risulta marcato come esaminato.</p>'}</div>
+ <div class="section"><h3>5. Collegamenti investigativi</h3><div class="darkbox">${connections.length?connections.map((c,i)=>`<div>${i+1}. ${c[0]} ↔ ${c[1]}</div>`).join(''):'Nessun collegamento costruito.'}</div></div>
+ <div class="section"><h3>6. Ricostruzione</h3><p><strong>Ipotesi scelta:</strong> ${hyp}</p><div class="darkbox">${events.length?events.map((e,i)=>`${i+1}. ${e}`).join('<br>'):'Nessun evento selezionato.'}</div></div>
+ <div class="section"><h3>7. Valutazione investigativa</h3><p>${miss.length?`Sono rimaste ${miss.length} domande senza risposta. L’archivio evidenzia queste omissioni perché possono aver impedito di verificare aspetti decisivi, senza considerare automaticamente errata la decisione finale.`:'L’indagine ha coperto tutte le domande previste. La valutazione dipende comunque dalla qualità dei collegamenti e della ricostruzione.'}</p></div>
+ <div class="section"><h3>8. Decisione finale</h3><p>La decisione registrata è: <strong>${labels[verdict]||verdict}</strong>. Il sistema conserva il verdetto come esito della tua analisi, non come verità oggettiva del caso.</p></div>
+ <div class="section"><h3>9. Valore dell’archivio</h3><p>Un’indagine non si misura soltanto dalla conclusione. Conta ciò che è stato verificato, ciò che è rimasto incerto e la capacità di distinguere un indizio da una prova.</p></div>
+ </div>
+ <div class="actions"><a class="btn" href="verdetto.html">← Torna alla sentenza</a><button class="secondary" onclick="window.print()">Stampa / salva archivio</button><button class="secondary" onclick="replay()">Rigioca il procedimento</button></div>
+ <footer>Oltre il Dubbio è un’opera di finzione e simulazione investigativo-giudiziaria. L’archivio non costituisce una decisione giudiziaria reale.</footer>`}
+function replay(){if(confirm('Vuoi cancellare tutti i dati del procedimento e ricominciare?')){localStorage.clear();location.href='test-home.html'}}
+render();
+</script>
+</body>
+</html>
