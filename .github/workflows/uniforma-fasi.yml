@@ -1,0 +1,65 @@
+name: Uniforma fasi procedimenti
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Applica shell comune alle fasi
+        shell: bash
+        run: |
+          set -euo pipefail
+          changed=0
+          for file in fascicolo.html interrogatori.html indizi.html ricostruzione.html verdetto.html archivio.html; do
+            if [ -f "$file" ]; then
+              python3 - "$file" <<'PY'
+import sys
+p=sys.argv[1]
+s=open(p,encoding='utf-8').read()
+if 'phase-shell.css' not in s:
+    s=s.replace('</head>','<link rel="stylesheet" href="/phase-shell.css"></head>',1) if '</head>' in s else s.replace('<main>','<link rel="stylesheet" href="/phase-shell.css"><main>',1)
+if 'phase-shell.js' not in s:
+    s=s.replace('</body>','<script src="/phase-shell.js"></script></body>',1) if '</body>' in s else s.replace('</html>','<script src="/phase-shell.js"></script></html>',1)
+open(p,'w',encoding='utf-8').write(s)
+PY
+              changed=1
+            fi
+          done
+          for dir in 027-26 031-26 044-26 052-26; do
+            for file in fascicolo.html interrogatori.html indizi.html ricostruzione.html verdetto.html archivio.html; do
+              p="$dir/$file"
+              [ -f "$p" ] || continue
+              python3 - "$p" <<'PY'
+import sys
+p=sys.argv[1]
+s=open(p,encoding='utf-8').read()
+if 'phase-shell.css' not in s:
+    tag='<link rel="stylesheet" href="../phase-shell.css">'
+    s=s.replace('</head>',tag+'</head>',1) if '</head>' in s else s.replace('<main>',tag+'<main>',1)
+if 'phase-shell.js' not in s:
+    tag='<script src="../phase-shell.js"></script>'
+    s=s.replace('</body>',tag+'</body>',1) if '</body>' in s else s.replace('</html>',tag+'</html>',1)
+open(p,'w',encoding='utf-8').write(s)
+PY
+              changed=1
+            done
+          done
+          if [ "$changed" -eq 1 ]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add fascicolo.html interrogatori.html indizi.html ricostruzione.html verdetto.html archivio.html 027-26 031-26 044-26 052-26
+            if ! git diff --cached --quiet; then
+              git commit -m 'Uniforma shell e navigazione delle fasi [skip ci]'
+              git push
+            fi
+          fi
