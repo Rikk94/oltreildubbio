@@ -1,0 +1,91 @@
+name: Harden phase integrity
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  harden:
+    if: ${{ !contains(github.event.head_commit.message, '[phase-guard]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Harden localStorage phase gates
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          def replace_once(path, old, new):
+              p = Path(path)
+              s = p.read_text(encoding='utf-8')
+              if old not in s:
+                  raise SystemExit(f'Pattern not found in {path}: {old[:120]}')
+              p.write_text(s.replace(old, new, 1), encoding='utf-8')
+
+          # Fase 02: completion flag must agree with the actual 9 answers + 3 witnesses.
+          p = Path('interrogatori.html')
+          s = p.read_text(encoding='utf-8')
+          old = "const complete=n===9&&opened.size===3;"
+          new = "const complete=n===9&&opened.size===3&&all.every(id=>asked[id]===true);"
+          if old in s:
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # Fase 03: derive access from real interrogation data, not only a stale flag.
+          p = Path('indizi.html')
+          s = p.read_text(encoding='utf-8')
+          old = "const ready=localStorage.getItem('od_interrogations_complete')==='true';"
+          new = "const phaseAnswers=JSON.parse(localStorage.getItem('od_answers')||'{}');const phaseWitnesses=JSON.parse(localStorage.getItem('od_witnesses')||'[]');const phaseQuestions=['a1','a2','a3','b1','b2','b3','c1','c2','c3'];const ready=phaseQuestions.every(id=>phaseAnswers[id]===true)&&new Set(phaseWitnesses).size===3;"
+          if old in s:
+              s = s.replace(old, new, 1)
+          old = "if(!ready){ev.preventDefault();alert('La fase Interrogatori non risulta completata.');return false}if(reviewed.size<6)"
+          new = "if(!ready){ev.preventDefault();alert('La fase Interrogatori non risulta completata secondo i dati effettivamente acquisiti.');return false}if(reviewed.size<6)"
+          if old in s:
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # Fase 04: require at least 6 reviewed items + 1 connection, computed from stored data.
+          p = Path('ricostruzione.html')
+          s = p.read_text(encoding='utf-8')
+          old = "const ready=localStorage.getItem('od_indizi_complete')==='true';"
+          new = "const phaseReviewed=new Set(JSON.parse(localStorage.getItem('od_reviewed')||'[]'));const phaseConnections=JSON.parse(localStorage.getItem('od_connections')||'[]');const ready=phaseReviewed.size>=6&&phaseConnections.length>=1;"
+          if old in s:
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # Fase 05: require actual reconstruction data.
+          p = Path('verdetto.html')
+          s = p.read_text(encoding='utf-8')
+          old = "const ready=localStorage.getItem('od_reconstruction_complete')==='true';"
+          new = "const phaseEvents=JSON.parse(localStorage.getItem('od_reconstruction_events')||'[]');const phaseHyp=localStorage.getItem('od_reconstruction_hyp')||'';const ready=phaseEvents.length>=3&&['A','B','C','D'].includes(phaseHyp);"
+          if old in s:
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+
+          # Fase 06: require verdict + valid reconstruction data.
+          p = Path('archivio.html')
+          s = p.read_text(encoding='utf-8')
+          old = "const verdict=localStorage.getItem('od_verdict');if(!verdict){"
+          new = "const verdict=localStorage.getItem('od_verdict');const phaseEvents=JSON.parse(localStorage.getItem('od_reconstruction_events')||'[]');const phaseHyp=localStorage.getItem('od_reconstruction_hyp')||'';if(!verdict||phaseEvents.length<3||!['A','B','C','D'].includes(phaseHyp)){"
+          if old in s:
+              s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit hardened files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add interrogatori.html indizi.html ricostruzione.html verdetto.html archivio.html
+          if git diff --cached --quiet; then
+            echo "No changes needed"
+          else
+            git commit -m "Applica blindatura integrità fasi [phase-guard]"
+            git push
+          fi
