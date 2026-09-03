@@ -2,7 +2,13 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/home.html"
+      "has": [
+        {
+          "type": "host",
+          "value": "test.oltreildubbio.it"
+        }
+      ],
+      "destination": "/gioco.html"
     }
   ]
 }
