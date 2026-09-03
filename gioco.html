@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oltre il Dubbio — Interrogatori</title>
+<style>body{margin:0;background:#090d14;color:#eeeae0;font-family:Arial,sans-serif;min-height:100vh;display:grid;place-items:center;text-align:center}main{max-width:620px;padding:40px}p{color:#9da5af;line-height:1.6}.loader{width:36px;height:36px;border:3px solid #343b48;border-top-color:#c8b77d;border-radius:50%;animation:spin .8s linear infinite;margin:25px auto}@keyframes spin{to{transform:rotate(360deg)}}a{color:#c8b77d}</style>
+</head>
+<body>
+<main>
+<div class="loader"></div>
+<h1>Caricamento del procedimento…</h1>
+<p>Accesso al fascicolo degli interrogatori.</p>
+<noscript>È necessario JavaScript per aprire il fascicolo.</noscript>
+</main>
+<script>
+(async()=>{
+  const source='https://raw.githubusercontent.com/Rikk94/oltreildubbio/6127860f1f836489bc4a353d6780b4939a1b3c0d/index.html';
+  try{
+    const r=await fetch(source,{cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const html=await r.text();
+    document.open();
+    document.write(html);
+    document.close();
+  }catch(e){
+    document.querySelector('main').innerHTML='<h1>Impossibile aprire il fascicolo</h1><p>Ricarica la pagina tra qualche secondo.</p><p><a href="/">← Torna alla Home</a></p>';
+    console.error(e);
+  }
+})();
+</script>
+</body>
+</html>
