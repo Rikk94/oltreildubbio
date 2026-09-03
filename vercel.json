@@ -1,14 +1,18 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
+      "src": "^/$",
       "has": [
         {
           "type": "host",
-          "value": "test.oltreildubbio.it"
+          "value": "test\\.oltreildubbio\\.it"
         }
       ],
-      "destination": "/test-home.html"
+      "dest": "/test-home.html"
+    },
+    {
+      "src": "^/(.*)$",
+      "dest": "/$1"
     }
   ]
 }
