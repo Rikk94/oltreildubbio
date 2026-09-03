@@ -1,1 +1,68 @@
-<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Oltre il Dubbio — Indizi</title><style>body{margin:0;background:#090d14;color:#eeeae0;font-family:Georgia,serif}header{padding:18px 28px;background:#101722;border-bottom:1px solid #343b48;display:flex;justify-content:space-between}.brand{letter-spacing:3px;font-weight:bold}.case{font:11px Arial;color:#888}main{max-width:1000px;margin:auto;padding:50px 24px}.ey{font:11px Arial;color:#c8b77d;letter-spacing:4px}h1{font-size:46px}.intro{color:#999;font:15px/1.6 Arial}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.card{background:#111822;border:1px solid #303846;border-radius:8px;padding:22px}.card h2{font-size:18px}.card p{color:#aaa;font:13px/1.6 Arial}.tag{display:inline-block;color:#c8b77d;border:1px solid #665a34;padding:5px 8px;font:10px Arial;letter-spacing:1px}.nav{margin-top:30px;display:flex;gap:10px;flex-wrap:wrap}.btn{padding:11px 16px;border:1px solid #5d5334;color:#c8b77d;text-decoration:none;font:12px Arial;border-radius:4px}@media(max-width:700px){.grid{grid-template-columns:1fr}}</style></head><body><header><div class="brand">⚖ OLTRE IL DUBBIO</div><div class="case">PROCEDIMENTO N. 014/26</div></header><main><div class="ey">FASE 03 · INDIZI</div><h1>Il quadro probatorio</h1><p class="intro">Gli elementi non valgono isolatamente. Il compito è capire quali si sostengono a vicenda e quali, invece, aprono nuovi dubbi.</p><div class="grid"><div class="card"><span class="tag">CRONOLOGIA</span><h2>22:15 · discussione</h2><p>Laura riferisce di aver sentito una discussione. Non ha identificato con certezza le persone.</p></div><div class="card"><span class="tag">TESTIMONIANZA</span><h2>Morelli al locale</h2><p>Elena colloca Marco al locale poco dopo le 23:00, ma ammette di non aver controllato l'orologio.</p></div><div class="card"><span class="tag">CONFLITTO</span><h2>Rapporto vittima-indagato</h2><p>Davide riferisce che Alessandro aveva parlato di un momento in cui Marco aveva perso la pazienza.</p></div><div class="card"><span class="tag">VERIFICA</span><h2>Ultima comunicazione</h2><p>Davide colloca l'ultima conversazione con Alessandro alle 18:00. Questo dato va confrontato con la cronologia completa.</p></div></div><div class="nav"><a class="btn" href="test-home.html">← Ambiente test</a><a class="btn" href="ricostruzione.html" onclick="localStorage.setItem('od_progress',70)">Ricostruzione →</a></div></main></body></html>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Oltre il Dubbio — Indizi</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#090d14;color:#eeeae0;font-family:Georgia,serif}header{padding:18px 28px;background:#101722;border-bottom:1px solid #343b48;display:flex;justify-content:space-between;align-items:center}.brand{letter-spacing:3px;font-weight:bold}.case{font:11px Arial;color:#888}main{max-width:1120px;margin:auto;padding:42px 24px 70px}.ey{font:11px Arial;color:#c8b77d;letter-spacing:4px}h1{font-size:42px;margin:10px 0}.intro{color:#999;font:15px/1.6 Arial;max-width:800px}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:25px 0}.stat{background:#111822;border:1px solid #303846;padding:12px 16px;border-radius:6px;font:11px Arial;color:#999}.stat b{display:block;color:#eeeae0;font-size:20px;margin-bottom:3px}.section{margin-top:34px}.section-title{font:11px Arial;letter-spacing:3px;color:#c8b77d;border-bottom:1px solid #303846;padding-bottom:10px;margin-bottom:14px}.board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:#111822;border:1px solid #303846;border-radius:8px;padding:20px;cursor:pointer;transition:.18s}.card:hover{border-color:#776b42;transform:translateY(-2px)}.card.locked{opacity:.42;cursor:default}.card.selected{border-color:#c8b77d;box-shadow:0 0 0 1px #c8b77d33}.tag{display:inline-block;color:#c8b77d;border:1px solid #665a34;padding:5px 8px;font:10px Arial;letter-spacing:1px}.card h2{font-size:18px;margin:13px 0 8px}.card p{color:#aaa;font:13px/1.6 Arial;margin:0}.detail{display:none;margin-top:14px;padding-top:14px;border-top:1px solid #303846;color:#bdb9ae;font:13px/1.65 Arial}.card.open .detail{display:block}.time{font:22px Arial;color:#eeeae0}.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.event{background:#0f151e;border-left:3px solid #665a34;padding:16px}.event .time{font-size:18px}.event strong{display:block;margin:7px 0;font:14px Arial}.event span{color:#888;font:12px/1.5 Arial}.connections{background:#0f151e;border:1px solid #303846;border-radius:8px;padding:20px}.hint{font:12px/1.6 Arial;color:#888;margin:0 0 16px}.selected-list{display:flex;gap:8px;flex-wrap:wrap;min-height:34px}.pill{background:#181f2a;border:1px solid #5d5334;padding:8px 10px;border-radius:4px;font:11px Arial;color:#d5c99a}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}.btn{padding:11px 16px;border:1px solid #5d5334;color:#c8b77d;background:transparent;text-decoration:none;font:12px Arial;border-radius:4px;cursor:pointer}.btn.primary{background:#c8b77d;color:#090d14;border-color:#c8b77d}.btn:disabled{opacity:.35;cursor:not-allowed}.notice{margin-top:15px;padding:13px;background:#151a22;border-left:3px solid #665a34;font:12px/1.5 Arial;color:#aaa}.nav{margin-top:35px;display:flex;gap:10px;flex-wrap:wrap}.muted{color:#777;font:12px Arial}@media(max-width:800px){.board,.timeline{grid-template-columns:1fr 1fr}}@media(max-width:560px){.board,.timeline{grid-template-columns:1fr}h1{font-size:34px}header{padding:15px 18px}.case{display:none}}
+</style>
+</head>
+<body>
+<header><div class="brand">⚖ OLTRE IL DUBBIO</div><div class="case">PROCEDIMENTO N. 014/26 · FASE 03</div></header>
+<main>
+<div class="ey">FASE 03 · INDIZI</div>
+<h1>Il quadro probatorio</h1>
+<p class="intro">Un indizio raramente parla da solo. Esamina gli elementi raccolti, confronta le versioni e prova a collegare ciò che sembra compatibile con ciò che invece crea una contraddizione.</p>
+<div class="stats"><div class="stat"><b id="count">0</b>ELEMENTI ACQUISITI</div><div class="stat"><b id="reviewed">0</b>ELEMENTI ESAMINATI</div><div class="stat"><b id="links">0</b>COLLEGAMENTI</div></div>
+
+<div class="section"><div class="section-title">ELEMENTI ACQUISITI</div><div class="board" id="board"></div></div>
+
+<div class="section"><div class="section-title">QUADRO TEMPORALE</div><div class="timeline">
+<div class="event"><div class="time">18:00</div><strong>Ultima comunicazione riferita</strong><span>Davide dice di aver parlato con Alessandro. È l'ultimo contatto che il collega ricorda.</span></div>
+<div class="event"><div class="time">22:15</div><strong>Discussione percepita</strong><span>Laura sente una discussione. La sua successiva identificazione di Marco non è certa.</span></div>
+<div class="event"><div class="time">23:00+</div><strong>Presenza al locale</strong><span>Elena colloca Marco al locale poco dopo le undici, ma non ha guardato l'orologio.</span></div>
+</div></div>
+
+<div class="section"><div class="section-title">COLLEGA DUE ELEMENTI</div><div class="connections">
+<p class="hint">Seleziona due elementi dalla lavagna. Il collegamento non dimostra automaticamente una verità: serve a formulare un'ipotesi investigativa.</p>
+<div class="selected-list" id="selected"><span class="muted">Nessun elemento selezionato.</span></div>
+<div class="actions"><button class="btn primary" id="connect" disabled>Collega gli elementi</button><button class="btn" id="clear">Azzera selezione</button></div>
+<div class="notice" id="result">Le relazioni create verranno conservate nel fascicolo del giocatore.</div>
+</div></div>
+
+<div class="nav"><a class="btn" href="test-home.html">← Ambiente test</a><a class="btn" href="interrogatori.html">← Interrogatori</a><a class="btn primary" id="next" href="ricostruzione.html" aria-disabled="true">Ricostruzione →</a></div>
+</main>
+<script>
+const evidenceMap={
+ '22:15':{tag:'CRONOLOGIA',title:'22:15 · discussione',text:'Laura riferisce di aver sentito una discussione. Non ha identificato con certezza le persone.',detail:'La testimonianza è utile per collocare un possibile evento, ma la capacità di identificazione della testimone è limitata: la persona vista era di spalle e il volto non è stato riconosciuto con certezza.'},
+ 'laura_identificazione':{tag:'ATTENDIBILITÀ',title:'Identificazione incerta di Marco',text:'Laura pensa di aver visto Marco lasciare l’edificio, ma non ha visto chiaramente il volto.',detail:'Questo elemento non equivale a un riconoscimento positivo. Deve essere valutato insieme alle condizioni di osservazione e agli altri dati temporali.'},
+ 'laura_attendibilita':{tag:'TESTIMONIANZA',title:'Limiti della percezione di Laura',text:'La testimone non controlla un orario preciso e non può confermare con certezza chi fosse presente.',detail:'La deposizione contiene un dato utile, ma anche un margine di errore. Nel giudizio investigativo, certezza e semplice impressione non hanno lo stesso peso.'},
+ 'alessandro_nervoso':{tag:'STATO D’ANIMO',title:'Alessandro era nervoso',text:'Davide riferisce che Alessandro appariva nervoso prima dell’ultima conversazione ricordata.',detail:'È un elemento di contesto. Da solo non dimostra un conflitto né identifica un responsabile.'},
+ 'conflitto':{tag:'CONFLITTO',title:'Marco aveva perso la pazienza',text:'Secondo Davide, Alessandro aveva parlato di un momento in cui Marco aveva perso la pazienza.',detail:'È una dichiarazione indiretta: Davide riferisce ciò che Alessandro gli avrebbe raccontato. Va distinta da una percezione diretta di un litigio.'},
+ '18:00':{tag:'CRONOLOGIA',title:'18:00 · ultima comunicazione',text:'Davide colloca l’ultima conversazione con Alessandro alle 18:00.',detail:'Il dato è importante perché crea un intervallo temporale da verificare. Non stabilisce cosa sia accaduto tra le 18:00 e le 22:15.'},
+ 'presenza_locale':{tag:'ALIBI',title:'Marco al locale',text:'Elena dice di aver visto Marco al locale.',detail:'La presenza è riferita direttamente dalla testimone, ma la sua collocazione temporale è approssimativa.'},
+ '23:00':{tag:'CRONOLOGIA',title:'23:00 circa · presenza al locale',text:'Elena indica un momento poco dopo le 23:00, forse le 23:20.',detail:'Elena ammette di non aver controllato l’orologio. L’orario è quindi indicativo e non puntuale.'},
+ 'orario_incerto':{tag:'ATTENDIBILITÀ',title:'Orario non verificato',text:'Elena non aveva guardato l’orologio quando ha visto Marco.',detail:'La presenza al locale può essere rilevante, ma l’incertezza sull’orario impedisce di usarla come prova temporale precisa senza ulteriori verifiche.'}
+};
+const acquired=new Set(JSON.parse(localStorage.getItem('od_evidence')||'[]'));
+const reviewed=new Set(JSON.parse(localStorage.getItem('od_reviewed')||'[]'));
+const connections=JSON.parse(localStorage.getItem('od_connections')||'[]');
+const board=document.getElementById('board'),selectedBox=document.getElementById('selected'),connectBtn=document.getElementById('connect'),result=document.getElementById('result'),next=document.getElementById('next');
+let selected=[];
+const fallback=['22:15','18:00','presenza_locale','23:00','conflitto'];
+if(!acquired.size){fallback.forEach(x=>acquired.add(x));}
+function save(){localStorage.setItem('od_evidence',JSON.stringify([...acquired]));localStorage.setItem('od_reviewed',JSON.stringify([...reviewed]));localStorage.setItem('od_connections',JSON.stringify(connections));}
+function render(){
+ board.innerHTML='';
+ [...acquired].forEach(id=>{const e=evidenceMap[id];if(!e)return;const c=document.createElement('article');c.className='card'+(selected.includes(id)?' selected':'')+(reviewed.has(id)?' open':'');c.innerHTML=`<span class="tag">${e.tag}</span><h2>${e.title}</h2><p>${e.text}</p><div class="detail">${e.detail}</div>`;c.onclick=()=>{reviewed.add(id);if(selected.includes(id))selected=selected.filter(x=>x!==id);else if(selected.length<2)selected.push(id);save();render();updateSelection()};board.appendChild(c)});
+ document.getElementById('count').textContent=acquired.size;document.getElementById('reviewed').textContent=reviewed.size;document.getElementById('links').textContent=connections.length;
+ const ready=reviewed.size>=4&&connections.length>=1;next.style.opacity=ready?'1':'.45';next.setAttribute('aria-disabled',ready?'false':'true');next.onclick=(ev)=>{if(!ready){ev.preventDefault();result.textContent='Prima di procedere devi esaminare almeno 4 elementi e creare almeno un collegamento tra due elementi.'}else{localStorage.setItem('od_progress','70');localStorage.setItem('od_indizi_complete','true')}};
+}
+function updateSelection(){selectedBox.innerHTML=selected.length?selected.map(id=>`<span class="pill">${evidenceMap[id]?.title||id}</span>`).join(''):'<span class="muted">Nessun elemento selezionato.</span>';connectBtn.disabled=selected.length!==2;}
+connectBtn.onclick=()=>{if(selected.length!==2)return;const pair=[...selected].sort();const exists=connections.some(x=>x.join('|')===pair.join('|'));if(!exists){connections.push(pair);save();result.textContent='Collegamento registrato nel fascicolo. Ora valuta se questa relazione è coerente o apre una contraddizione.'}else result.textContent='Questo collegamento è già presente nel fascicolo.';selected=[];render();updateSelection()};
+document.getElementById('clear').onclick=()=>{selected=[];updateSelection();render()};
+render();updateSelection();
+</script>
+</body>
+</html>
