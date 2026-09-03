@@ -14,16 +14,16 @@
 <main class="wrap" id="app"></main>
 <script>
 const answers=JSON.parse(localStorage.getItem('od_answers')||'{}');
-const evidence=JSON.parse(localStorage.getItem('od_evidence')||'{}');
-const reviewed=JSON.parse(localStorage.getItem('od_reviewed')||'{}');
+const evidence=JSON.parse(localStorage.getItem('od_evidence')||'[]');
+const reviewed=JSON.parse(localStorage.getItem('od_reviewed')||'[]');
 const connections=JSON.parse(localStorage.getItem('od_connections')||'[]');
 const events=JSON.parse(localStorage.getItem('od_reconstruction_events')||'[]');
 const hyp=localStorage.getItem('od_reconstruction_hyp')||'—';
 const verdict=localStorage.getItem('od_verdict');
 const labels={colpevole:'RESPONSABILITÀ AFFERMATA',dubbio:'ASSOLUZIONE PER DUBBIO',insufficiente:'PROVE INSUFFICIENTI',responsabilita-parziale:'QUADRO NON UNIVOCO'};
 const qLabels={a1:'Laura · discussione delle 22:15',a2:'Laura · identificazione di Marco',a3:'Laura · limiti della percezione',b1:'Davide · stato d’animo di Alessandro',b2:'Davide · conflitto con Marco',b3:'Davide · ultima comunicazione',c1:'Elena · presenza di Marco al locale',c2:'Elena · orario della presenza',c3:'Elena · precisione dell’orario'};
-const evidenceLabels={a1:'Discussione delle 22:15',a2:'Identificazione incerta',a3:'Attendibilità dell’identificazione',b1:'Alessandro era nervoso',b2:'Conflitto riferito',b3:'Ultima comunicazione delle 18:00',c1:'Presenza di Marco al locale',c2:'Presenza intorno alle 23:00',c3:'Orario dichiarato incerto'};
-const asked=Object.keys(answers);const acquired=Object.keys(evidence);const rev=Object.keys(reviewed).filter(k=>reviewed[k]);
+const evidenceLabels={a1:'Discussione delle 22:15',a2:'Identificazione incerta',a3:'Attendibilità dell’identificazione',b1:'Alessandro era nervoso',b2:'Conflitto riferito',b3:'Ultima comunicazione delle 18:00',c1:'Presenza di Marco al locale',c2:'Presenza intorno alle 23:00',c3:'Orario dichiarato incerto',telefono:'Telefono di Alessandro',bicchiere:'Bicchiere frammentato',porta:'Porta senza effrazione',referto:'Finestra medico-legale',laura:'Persona vista da Laura',elena:'Marco al locale',davide:'Litigio raccontato da Davide',registro:'Registro accessi condominiale',farmaco:'Confezione di farmaco'};
+const asked=Object.keys(answers);const acquired=Array.isArray(evidence)?evidence:Object.keys(evidence);const rev=Array.isArray(reviewed)?reviewed:Object.keys(reviewed).filter(k=>reviewed[k]);
 function score(){let s=0;s+=asked.length/9*30;s+=Math.min(rev.length/Math.max(acquired.length,1),1)*20;s+=Math.min(connections.length/3,1)*20;s+=events.length>=3?20:events.length/3*20;if(hyp==='D')s-=10;return Math.max(0,Math.min(100,Math.round(s)))}
 function missed(){return Object.keys(qLabels).filter(k=>!answers[k])}
 function render(){
