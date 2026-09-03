@@ -10,12 +10,16 @@
 <main><section class="hero"><div class="eyebrow">FASCICOLO RISERVATO · 014/26</div><h1>Oltre il Dubbio</h1><p>Questa è la versione completa di test. Qui puoi attraversare l'intero procedimento: fascicolo, interrogatori, indizi, ricostruzione, verdetto e archivio finale.</p><div class="status">AMBIENTE DI SVILUPPO</div></section>
 <section class="progress"><div class="small">AVANZAMENTO DEL PROCEDIMENTO <span id="pct">0%</span></div><div class="bar"><div class="fill" id="fill"></div></div></section>
 <section class="section"><h2>IL PROCEDIMENTO</h2><div class="grid">
-<a class="card" href="fascicolo.html"><div class="num">FASE 01</div><h3>Il fascicolo</h3><p>Leggi il caso, le persone coinvolte e la cronologia iniziale.</p></a>
-<a class="card" href="interrogatori.html"><div class="num">FASE 02</div><h3>Interrogatori</h3><p>Ascolta i testimoni e cerca contraddizioni nelle loro versioni.</p></a>
-<a class="card" href="indizi.html"><div class="num">FASE 03</div><h3>Indizi</h3><p>Raccogli e confronta gli elementi emersi durante l'indagine.</p></a>
-<a class="card" href="ricostruzione.html"><div class="num">FASE 04</div><h3>Ricostruzione</h3><p>Metti in ordine fatti, orari, persone e dichiarazioni.</p></a>
-<a class="card" href="verdetto.html"><div class="num">FASE 05</div><h3>Verdetto</h3><p>Formula la tua conclusione e leggi la sentenza simulata.</p></a>
-<a class="card locked" id="archive" href="archivio.html"><div class="num">FASE 06</div><h3>Archivio</h3><p id="archiveText">Sezione riservata. Si sblocca dopo il verdetto.</p></a>
+<a class="card" id="p1" href="fascicolo.html"><div class="num">FASE 01</div><h3>Il fascicolo</h3><p>Leggi il caso, le persone coinvolte e la cronologia iniziale.</p></a>
+<a class="card" id="p2" href="interrogatori.html"><div class="num">FASE 02</div><h3>Interrogatori</h3><p id="p2t">Ascolta i testimoni e cerca contraddizioni nelle loro versioni.</p></a>
+<a class="card" id="p3" href="indizi.html"><div class="num">FASE 03</div><h3>Indizi</h3><p id="p3t">Raccogli e confronta gli elementi emersi durante l'indagine.</p></a>
+<a class="card" id="p4" href="ricostruzione.html"><div class="num">FASE 04</div><h3>Ricostruzione</h3><p id="p4t">Metti in ordine fatti, orari, persone e dichiarazioni.</p></a>
+<a class="card" id="p5" href="verdetto.html"><div class="num">FASE 05</div><h3>Verdetto</h3><p id="p5t">Formula la tua conclusione e leggi la sentenza simulata.</p></a>
+<a class="card locked" id="archive" href="verdetto.html"><div class="num">FASE 06</div><h3>Archivio</h3><p id="archiveText">Sezione riservata. Si sblocca dopo il verdetto.</p></a>
 </div></section>
 <div class="notice">⚠ Questa versione è destinata ai test. I contenuti, la logica investigativa e il sistema di valutazione sono ancora in sviluppo.</div>
-</main><script>function update(){let n=Number(localStorage.getItem('od_progress')||0);n=Math.max(0,Math.min(100,n));document.getElementById('fill').style.width=n+'%';document.getElementById('pct').textContent=n+'%';let done=!!localStorage.getItem('od_verdict');let a=document.getElementById('archive');if(done){a.classList.remove('locked');document.getElementById('archiveText').textContent='Consulta il fascicolo conclusivo, le omissioni e il risultato della tua indagine.'}else{a.classList.add('locked');a.href='verdetto.html'}}update();</script></body></html>
+</main><script>
+const flags={p2:localStorage.getItem('od_case_read')==='1',p3:localStorage.getItem('od_interrogations_complete')==='true',p4:localStorage.getItem('od_indizi_complete')==='true',p5:localStorage.getItem('od_reconstruction_complete')==='true',archive:!!localStorage.getItem('od_verdict')};
+function lock(id,ok,href,text){const a=document.getElementById(id);if(!ok){a.classList.add('locked');a.href=href;a.onclick=e=>{e.preventDefault();alert(text)}}}
+function update(){let n=Number(localStorage.getItem('od_progress')||0);n=Math.max(0,Math.min(100,n));document.getElementById('fill').style.width=n+'%';document.getElementById('pct').textContent=n+'%';lock('p2',flags.p2,'fascicolo.html','Prima devi acquisire il fascicolo.');lock('p3',flags.p3,'interrogatori.html','Prima devi completare tutti gli interrogatori.');lock('p4',flags.p4,'indizi.html','Prima devi completare il quadro probatorio.');lock('p5',flags.p5,'ricostruzione.html','Prima devi depositare una ricostruzione.');const a=document.getElementById('archive');if(flags.archive){a.classList.remove('locked');a.href='archivio.html';document.getElementById('archiveText').textContent='Consulta il fascicolo conclusivo, le omissioni e il risultato della tua indagine.'}else{a.classList.add('locked');a.href='verdetto.html';a.onclick=e=>{e.preventDefault();alert('L’archivio viene generato solo dopo il verdetto.')}}}update();
+</script></body></html>
