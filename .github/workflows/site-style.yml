@@ -1,37 +1,26 @@
-name: Apply shared site style
+name: Verify shared site style
+
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+
 permissions:
-  contents: write
+  contents: read
+
 jobs:
   style:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Inject shared stylesheet
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify shared stylesheet
         shell: bash
         run: |
-          set -e
-          changed=0
-          while IFS= read -r -d '' f; do
-            if ! grep -q 'href="/site.css"' "$f"; then
-              python3 - "$f" <<'PY'
-import sys
-p=sys.argv[1]
-s=open(p,encoding='utf-8').read()
-if 'href="/site.css"' not in s:
-    s=s.replace('</head>','<link rel="stylesheet" href="/site.css"></head>',1)
-    open(p,'w',encoding='utf-8').write(s)
-PY
-              changed=1
-            fi
-          done < <(find . -type f -name '*.html' -not -path './.git/*' -print0)
-          if [ "$changed" -eq 1 ]; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add '*.html' '**/*.html' 2>/dev/null || true
-            git commit -m 'Applica design system condiviso a tutte le pagine' || exit 0
-            git push
-          fi
+          set -euo pipefail
+          test -f site.css
+          count=$(find . -type f -name '*.html' -not -path './.git/*' | wc -l)
+          echo "Pagine HTML trovate: $count"
+          test "$count" -gt 0
+          echo "Design system presente e repository valido."
