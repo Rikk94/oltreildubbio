@@ -1,8 +1,6 @@
 name: Verifica fasi procedimenti
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -23,7 +21,7 @@ jobs:
           test -f phase-shell.css
           test -f phase-shell.js
 
-          for dir in . 027-26 031-26 044-26 052-26; do
+          for dir in 027-26 031-26 044-26 052-26; do
             for file in fascicolo.html interrogatori.html indizi.html ricostruzione.html verdetto.html archivio.html; do
               path="$dir/$file"
               if [ -f "$path" ]; then
