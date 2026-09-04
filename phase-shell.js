@@ -1,12 +1,12 @@
 (function(){
   const parts=location.pathname.split('/').filter(Boolean);
   const dir=parts[0]||'';
-  const isCaseDir=/^(014|027|031|044|052)-26$/.test(dir);
+  const isCaseDir=/^(014|027|031|044|052|061)-26$/.test(dir);
   const caseId=isCaseDir?dir:'014-26';
   const root=isCaseDir?'../':'./';
   const phase=(location.pathname.split('/').pop()||'').replace('.html','');
   const labels={fascicolo:['01','INDAGINE','fascicolo.html'],interrogatori:['02','INTERROGATORI','interrogatori.html'],indizi:['03','INDIZI','indizi.html'],ricostruzione:['04','RICOSTRUZIONE','ricostruzione.html'],verdetto:['05','VERDETTO','verdetto.html'],archivio:['06','ARCHIVIO','archivio.html']};
-  const names={'014-26':'La Stanza Chiusa','027-26':"L'Ultima Corsa",'031-26':'La Testimone','044-26':'Il Messaggio delle 23:17','052-26':'Senza Testimoni'};
+  const names={'014-26':'La Stanza Chiusa','027-26':"L'Ultima Corsa",'031-26':'La Testimone','044-26':'Il Messaggio delle 23:17','052-26':'Senza Testimoni','061-26':'La Porta Aperta'};
   document.body.classList.add('od-phase');
   document.querySelectorAll('.od-top,.od-casebar,.od-phase-nav,.od-footer').forEach(function(el){el.remove();});
   const oldMain=document.querySelector('main');
