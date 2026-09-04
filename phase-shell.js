@@ -1,4 +1,5 @@
 (function(){
+  const fav=document.createElement('link');fav.rel='icon';fav.type='image/svg+xml';fav.href='/favicon.svg';document.head.appendChild(fav);
   const parts=location.pathname.split('/').filter(Boolean);
   const dir=parts[0]||'';
   const isCaseDir=/^(014|027|031|044|052|061|074)-26$/.test(dir);
